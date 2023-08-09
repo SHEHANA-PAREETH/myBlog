@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>signup</title>
+  <link rel="stylesheet" href="/user/style/signup.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script src="https://kit.fontawesome.com/b2a03b7303.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+       
+          <img src="/assets/logo.png" alt="" width="300" height="100">
+          <p class="m-5" style="color:#464F1A;">If you already has an account,<br> just sign in.</p>
+        
+        
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+  
+  <a href="/signin"><button type="button" class="btn  me-1 fw-bolder" style="background-color: #7FC37E;"> USER</button></a>
+  <a href="/admin"><button type="button" class="btn fw-bolder" style="background-color: #7FC37E;"> ADMIN</button></a>
+</div>
+          
+      </div>
+
+
+      <div class="col-12 col-md-6">
+        <h4  class="text-center mt-5" style="color:#464F1A;">Create your Account</h4>
+        <h5 class="text-center" style="color:#464F1A;">SIGN UP</h5>
+
+
+        <div class="mb-3">
+          <label for="name" class="form-label">User name</label>
+          <input type="text" name="name" class="form-control" id="name" onblur="validateName()">
+        </div>
+        <span class="error" id="nameError">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <p class="error-text ">Please enter a valid username..</p>
+        </span>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" name="email" class="form-control" id="email" onblur="validateEmail()">
+          <div class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <span class="error" id="emailError">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <p class="error-text">Please enter a valid email..</p>
+        </span>
+        <div class="mb-3 ">
+          <label for="mob" class="form-label">Mobile number</label>
+          <input type="number" name="mob" class="form-control" id="mob" onblur="validateMob()">
+          <div id="emailHelp" class="form-text">We'll never share your phone number with anyone else.</div>
+        </div>
+        <span class="error" id="mobError">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <p class="error-text">Please enter a valid mobile number..</p>
+        </span>
+        <div class="mb-3">
+          <label for="password1" class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" id="password1" onblur="validatePassword()">
+        </div>
+        <span class="error " id="passError">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <p class="error-text">Please enter atleast 8 character with number,symbol,small and capital letter..</p>
+        </span>
+
+        <div class="mb-3">
+          <label for="password2" class="form-label">Re-enter Password</label>
+          <input type="password" name="confirmpass" class="form-control" id="password2" onblur="confirmPassword()">
+        </div>
+        <span class="error" id="confirmpass-error">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <p class="error-text">Password doesn't match..</p>
+        </span>
+        <button style="background-color: #7FC37E;" class="btn text-dark fw-bolder" onclick="doSignUp()">SIGN UP</button>
+
+
+
+      </div>
+    </div>
+  </div>
+  <script src="user/script/signup.js"></script>
+  <script src="user/script/form.js"></script>
+</body>
+
+</html>

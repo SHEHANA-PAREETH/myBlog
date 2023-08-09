@@ -1,0 +1,23 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+body{
+    
+    background-image:url('/assets/pen.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:left;
+   
+}
+
+.error{
+  display:flex;
+    color:red;
+    display: none;
+}
+.invalid{
+    display:flex;
+}
