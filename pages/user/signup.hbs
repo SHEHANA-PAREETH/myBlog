@@ -17,19 +17,24 @@
 
 <body>
   <div class="container">
+      
+
     <div class="row">
       <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
        
-          <img src="/assets/logo.png" alt="" width="300" height="100">
+          <img src="/assets/silogo.png" alt="" width="300" height="150">
           <p class="m-5" style="color:#464F1A;">If you already has an account,<br> just sign in.</p>
         
         
           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
   
-  <a href="/signin"><button type="button" class="btn  me-1 fw-bolder" style="background-color: #7FC37E;"> USER</button></a>
-  <a href="/admin"><button type="button" class="btn fw-bolder" style="background-color: #7FC37E;"> ADMIN</button></a>
+  <a href="/signin"><button type="button" class="btn  me-1 fw-bolder" style="background-color:#FF8000;"> USER</button></a>
+  <a href="/admin"><button type="button" class="btn fw-bolder" style="background-color:#FF8000;"> ADMIN</button></a>
 </div>
           
+      
+   
+      
       </div>
 
 
@@ -38,6 +43,15 @@
         <h5 class="text-center" style="color:#464F1A;">SIGN UP</h5>
 
 
+
+
+ <span class="error alert alert-warning alert-dismissible fade show" id="existError"  role="alert">
+          <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
+          <h6 class="existerror_text ms-3">Account already exists</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </span>
+       
+    
         <div class="mb-3">
           <label for="name" class="form-label">User name</label>
           <input type="text" name="name" class="form-control" id="name" onblur="validateName()">
@@ -81,7 +95,7 @@
           <i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i>
           <p class="error-text">Password doesn't match..</p>
         </span>
-        <button style="background-color: #7FC37E;" class="btn text-dark fw-bolder" onclick="doSignUp()">SIGN UP</button>
+        <button style="background-color:#FF8000;" class="btn text-dark fw-bolder" onclick="doSignUp()">SIGN UP</button>
 
 
 

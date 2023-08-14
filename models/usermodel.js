@@ -17,6 +17,9 @@ const userSchema=mongoose.Schema({
     mobileno:{
         type:Number,
         required:true,
+    },
+    profilepic:{
+        type:String
     }
 })
 

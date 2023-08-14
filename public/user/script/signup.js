@@ -53,10 +53,11 @@ let validateName=()=>{
           }
               }
             let  validatePassword=()=>{
-             let reg=/^[a-zA-Z !@#$%^&*()0-9]+$/;
+                let reg= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+            // let reg=;/^[a-zA-Z !@#$%^&*()0-9]+$/;
              let text=document.getElementById("password1").value;
              let errortext=document.getElementById("passError");
-             if(reg.test(text)&&text.length>=8){
+             if(reg.test(text)){
                  console.log("success");
                  errortext.classList.remove("invalid");
                return true;

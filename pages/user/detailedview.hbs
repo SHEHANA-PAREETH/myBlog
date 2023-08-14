@@ -17,7 +17,8 @@
 {{#if data.images.[0].filename}}
 
 <h2 class="text-center m-5">{{data.title}}</h2>
-<small class="text-center">{{data.createdBy.name}},</small>
+<small class="text-center">{{data.createdBy.name}},</small><br>
+<small>{{date}},{{time}}</small><br>
 <small>{{data.category}}</small>
 <div  class="text-center m-5"><img src="/uploads/{{data.images.[0].filename}}" alt="" style="width:400px;"></div>
 <div  class="text-center m-5"><img src="/uploads/{{data.images.[1].filename}}" alt="" style="width:400px;"></div>

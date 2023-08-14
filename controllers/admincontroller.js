@@ -5,7 +5,7 @@ const BLOGS=require('../models/blogschema')
 const jwt=require('jsonwebtoken')
 const path=require('path')
 const fs=require('fs')
-
+const USER=require("../models/usermodel").users
 
 
 
@@ -21,11 +21,15 @@ const showAdLogin=(req,res)=>{
         }
         
 }
+const showPost=(req,res)=>{
+    BLOGS.find().then((response)=>{
+        
+        res.render('admin/post.hbs',{data:response})
+      })
+}
 
 const adHome=(req,res)=>{
-    BLOGS.find().then((response)=>{
-      res.render('admin/home.hbs',{data:response})
-    })
+    res.render('admin/home.hbs')
   }
 
 
@@ -77,12 +81,12 @@ const createBlog=(req,res)=>{
     })
     const upload=multer({storage:fileStorage}).array("images",4)
     upload(req,res,(err)=>{
+
     console.log(req.files);
     BLOGS({title:req.body.title,
         category:req.body.category,
         content:req.body.content,
         description:req.body.description,
-        author:req.body.author,
        images:req.files}).save().then((response)=>{
 res.redirect('/admin/home')
  })
@@ -127,5 +131,57 @@ res.json({delete:false,msg:err})
  }
 
 }
+const showView=(req,res)=>{
+    try{
+        console.log(req.query);
+        BLOGS.find({_id:req.query.id})//use find one 
+        .populate({
+            path:'createdBy',
+            select:['name','email']//show only users name and email
+        })
+        .then(response=>{
+            //response[0].createdAt=new Date(response[0].createdAt)
+           console.log(response);
+           const day=convertISODateToCustomerFormat(response[0].createdAt)
+           console.log(day);
+           const date=day.slice(0,11)
+           const time=day.slice(12,20)
+           
+          
+            res.render('user/detailedview.hbs',{data:response[0],time,date})
+        })
+        .catch(err=>{
+            console.log("error");//design error page, try catch use cheyyuka
+        })
+           
+     }
+     catch(err){
+    res.send("handled in catch")
+     }
+}
 
-module.exports={showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost}
+
+function convertISODateToCustomerFormat(isoDate){
+    const dateObj=new Date(isoDate)
+    const day=String(dateObj.getDate()).padStart(2,'0')
+    const month=String(dateObj).slice(4,7)
+    const year=dateObj.getFullYear()
+    const hours=dateObj.getHours()%12||12
+    const minutes=String(dateObj.getMinutes()).padStart(2,'0')
+    const amOrPm=dateObj.getHours()>=12?'PM':'AM'
+    return `${day}-${month}-${year}-${hours}-${minutes}-${amOrPm}`
+}
+
+
+const showUser=(req,res)=>{
+    USER.find().then((response)=>{
+        res.render('admin/user.hbs',{data:response})
+    })
+}
+const showUserProfile=(req,res)=>{
+
+USER.find({_id:req.query.id}).then((response)=>{
+    res.render('admin/userprofile.hbs')
+})
+}
+module.exports={showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile}

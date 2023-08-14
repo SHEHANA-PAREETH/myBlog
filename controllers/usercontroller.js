@@ -33,19 +33,37 @@ const doSignUp=(req,res)=>{
     console.log("at backend",req.body)
     //automatically user collection created
 //db query like promise
-    USER({
+
+USER.findOne({email:req.body.email}).then((response)=>{
+   if(response){
+    console.log('already');
+   
+    res.json({user:true})
+  console.log('rendered signup');
+} 
+
+   
+   else
+   {
+    console.log('new user');
+     USER({
     email:req.body.email,
     name:req.body.name,
     mobileno:req.body.mobileno,
     password:req.body.password
-}).save().then((res)=>{
+}).save().then((resp)=>{
+    console.log('written');
     res.json({signup:true})//success res to back end
 })    //like promise
 .catch(()=>{
+    console.log('error');
     res.json({signup:false})
 
+})}
 })
+   
 }
+    
 
 const doLogin=(req,res)=>{
     console.log('logindatabackend',req.body);
@@ -81,29 +99,36 @@ else{
 
 
 const showHomePage=(req,res)=>{
-  BLOGS.find().then((response)=>{
-    res.render('user/home.hbs',{data:response})
-  })
+ 
+    res.render('user/home.hbs')
 }
 
 
 const detailedViewPage=(req,res)=>{
+ try{
     console.log(req.query);
-BLOGS.find({_id:req.query.id})
-.populate({
-    path:'createdBy',
-    select:['name','email']//show only users name and email
-})
-.then(response=>{
-    //response[0].createdAt=new Date(response[0].createdAt)
-   console.log(response);
-   
-    res.render('user/detailedview.hbs',{data:response[0]})
-})
-.catch(err=>{
-    console.log("error");//design error page, try catch use cheyyuka
-})
-   
+    BLOGS.find({_id:req.query.id})//use find one 
+    .populate({
+        path:'createdBy',
+        select:['name','email']//show only users name and email
+    })
+    .then(response=>{
+        //response[0].createdAt=new Date(response[0].createdAt)
+       console.log(response);
+       const day=convertISODateToCustomerFormat(response[0].createdAt)
+       const date=day.slice(0,12)
+     const time=day.slice(13,21)
+      console.log(date,time);
+        res.render('user/detailedview.hbs',{data:response[0],date,time})
+    })
+    .catch(err=>{
+        console.log("error");//design error page, try catch use cheyyuka
+    })
+       
+ }
+ catch(err){
+res.send("handled in catch")
+ }
 }
 
 const logout=(req,res)=>{
@@ -141,8 +166,47 @@ const uploadPost=(req,res)=>{
         description:req.body.description,
         createdBy:req.query.id,//to print user uploading blog
        images:req.files}).save().then((response)=>{
-res.redirect('/home')
+res.redirect('/blog')
  })
 })
 }
-module.exports={showHomePage,showSignIn,showSignUp,doSignUp,doLogin,detailedViewPage,logout,showUpload,uploadPost}
+const blogView=(req,res)=>{
+    BLOGS.find().then((response)=>{
+        //get array of objects
+       
+        res.render('user/blog.hbs',{data:response})
+  
+  })
+    
+}
+function convertISODateToCustomerFormat(isoDate){
+    const dateObj=new Date(isoDate)
+    const day=String(dateObj.getDate()).padStart(2,'0')
+    const month=String(dateObj).slice(4,8)
+    const year=dateObj.getFullYear()
+    const hours=dateObj.getHours()%12||12
+    const minutes=String(dateObj.getMinutes()).padStart(2,'0')
+    const amOrPm=dateObj.getHours()>=12?'PM':'AM'
+    return `${day}-${month}-${year}-${hours}-${minutes}-${amOrPm}`
+}
+
+const createPassPage=(req,res)=>{
+    res.render('user/forgottpass.hbs')
+}
+
+const createNewPass=(req,res)=>{
+console.log(req.body);
+USER.findOneAndUpdate({email:req.body.email,name:req.body.name}, {$set:{password:req.body.pass1}}, {new: true}).then(doc=>{
+    if(doc){
+        console.log(doc);
+        res.json({passwordUpdated:true})
+    }
+   else
+   res.json({passwordUpdated:false})
+    
+    
+})
+
+
+}
+module.exports={showHomePage,showSignIn,showSignUp,doSignUp,doLogin,detailedViewPage,logout,showUpload,uploadPost,blogView,createPassPage,createNewPass}

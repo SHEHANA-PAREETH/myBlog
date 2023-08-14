@@ -18,7 +18,7 @@
     <a class="nav-link active" aria-current="page" href="/admin/post">Manage Posts</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/admin/user">Manage Users</a>
+    <a class="nav-link" href="#">Manage Users</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Link</a>
@@ -40,7 +40,34 @@
          <div class="col-9 position-absolute top-0 end-0 d-flex mt-5" >
 
 
-        
+          <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">SN</th>
+     
+      
+      <th scope="col">User name</th>
+       <th scope="col">Mobile NUMber</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    
+     {{#each data}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.name}}</td>
+     <td>{{this.mobileno}}</td>
+     <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
+  <a href="/admin/viewuser/?id={{this._id}}"><button type="button" class="btn btn-danger">View</button></a>
+  <button type="button" class="btn btn-warning" onclick="deletePost('{{this._id}}')">Block</button>
+  
+</div></td>
+    </tr>
+     {{/each}} 
+  </tbody>
+</table>
      </div>
           </div> 
         

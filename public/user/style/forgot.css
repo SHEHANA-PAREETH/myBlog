@@ -1,0 +1,11 @@
+.forgotnotshow{
+    display:none;
+}
+.error{
+    display:flex;
+      color:red;
+      display: none;
+  }
+  .invalid{
+      display:flex;
+  }

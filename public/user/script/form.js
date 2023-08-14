@@ -20,9 +20,19 @@ function doSignUp(){
      },
      //convert object to json format("string format")
      body:JSON.stringify(formData)
- }).then((data)=>{
-   window.location.href="/"
- })
+ }).then((response)=>response.json())
+ .then(data=>{console.log('signup front end');
+ console.log(data);
+    if(data.signup){
+        window.location.href="/signin"
+    }
+    if(data.user){
+       
+        
+        let errortext=document.getElementById("existError");
+        errortext.classList.add("invalid");
+    }
+ })    
 }
 function doLogin(){
     let LoginData={}
@@ -37,6 +47,7 @@ fetch("/login",{
     body:JSON.stringify(LoginData)
 }).then((response)=>response.json())//diffrent format from back end to front end, to parse it to json format
 .then(data=>{
+    
    if(data.login){
     //bom property
     window.location.href='/home'
@@ -56,6 +67,80 @@ function logout(){
     sessionStorage.clear()
     window.location.href='/logout'//location.assign('/signin')
 }
+
+
+
+
+const forgotpassword=()=>{
+    let LoginData={}
+    LoginData.email=document.getElementById("email").value
+    LoginData.name=document.getElementById("name").value
+    LoginData.pass1=document.getElementById("password1").value
+    LoginData.pass2=document.getElementById("password2").value
+    let reg= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+   if(LoginData.email==''||LoginData.name==''||LoginData.pass1==''||LoginData.pass2==''){
+    document.getElementById("warning1").innerHTML="enter all fields"
+    setTimeout(()=>{
+        document.getElementById("warning1").innerHTML=""
+    },2000)
+   }
+
+else{
+    if(reg.test(LoginData.pass1)){
+        if(LoginData.pass1!==LoginData.pass2){
+            document.getElementById("warning2").innerHTML="Passwords don't match"
+        setTimeout(()=>{
+            document.getElementById("warning2").innerHTML=""
+        },2000)
+        }
+       
+          else{
+             
+            fetch("/createpassword",{
+                method:'post',
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(LoginData)
+            }).then((response)=>response.json())//diffrent format from back end to front end, to parse it to json format
+            .then(data=>{
+                console.log(data);
+               if(data.passwordUpdated){
+                //bom property
+                document.getElementById("message").innerHTML="Password updated suucessfully"
+                setTimeout(()=>{
+                    window.location.href='/signin'
+                },2000)
+               
+               }
+            else{document.getElementById("message").innerHTML="User doesn't exist, create new account"
+                
+            setTimeout(()=>{
+                window.location.href='/'
+            },5000)
+           
+            
+            } })
+                 
+        }
+    
+    }
+      
+    else 
+{
+    let errortext=document.getElementById("passError");
+        errortext.classList.add("invalid");
+        setTimeout(()=>{
+            errortext.classList.remove("invalid");
+        },2000)
+
+}
+
+}
+    
+    
+}   
+    
 
 
 const showImages=()=>{
