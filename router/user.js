@@ -1,7 +1,8 @@
 const express=require("express")
 const router=express.Router()
 
-const {logout,showSignIn,showSignUp,doSignUp,doLogin,showHomePage,detailedViewPage,showUpload,uploadPost,blogView,createPassPage,createNewPass}=require("../controllers/usercontroller")
+const {logout,showSignIn,showSignUp,doSignUp,doLogin,showHomePage,detailedViewPage,showUpload,uploadPost,blogView,
+    createPassPage,createNewPass,uploadProfilepic,showCategory,showMyblogs}=require("../controllers/usercontroller")
 const userAuth=require('../middleware/userAuth')
 
 
@@ -15,7 +16,9 @@ router.post("/login",doLogin)
 router.get("/home",userAuth,showHomePage)
 router.get("/detailedview",userAuth,detailedViewPage)
 router.get("/logout",logout)
-router.get("/forgotpassword",createPassPage)
-router.post("/createpassword",createNewPass)
-
+router.get("/forgotpassword",userAuth,createPassPage)
+router.post("/createpassword",userAuth,createNewPass)
+router.post("/editprofile",userAuth,uploadProfilepic)
+router.get('/category',userAuth,showCategory)
+router.get('/myblogs',userAuth,showMyblogs)
 module.exports=router

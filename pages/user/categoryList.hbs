@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    
  <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -40,9 +41,10 @@
     <li><a class="dropdown-item" href="/category?category=Technology">Technology</a></li>
        <li><a class="dropdown-item" href="/category?category=Business">Business</a></li> 
     <li><a class="dropdown-item" href="/category?category=Web Design">Web Design</a></li>
-        <li><a class="dropdown-item" href="/category?category=Health care">Health care</a></li>
-        <li><a class="dropdown-item" href="/category?category=Movies">Movies</a></li>
-    <li><a class="dropdown-item" href="/category?category=Artificial Intelligence">Artificial Intelligence</a></li>
+          <li><a class="dropdown-item" href="/category?category=Health care">Health care</a></li>
+          <li><a class="dropdown-item" href="/category?category=Movies">Movies</a></li>
+          <li><a class="dropdown-item" href="/category?category=Artificial Intelligence">Artificial Intelligence</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
   </ul>
         </li>
        <a href="/uploads" ><button class="btn btn-dark">Create blog</button></a>
@@ -56,12 +58,12 @@
   </div>
 </nav>
  </header>
-   
-      
-
+    
 <div class="container">
   <div  class="col-md-12 d-flex flex-column justify-content-center align-items-center">
+   
     {{#each data}}
+     
 <section>
   <div class="card my-5" style="width:70vw;height:30vh;">
   <div class="row g-0">
@@ -72,7 +74,7 @@
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
         <small class="card-text lh-1"> {{this.content}}</small>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago{{date}}</small></p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago{{this.date}}</small></p>
       </div>
     </div>
   </div>
@@ -83,7 +85,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <script src="user/script/form.js"></script>
+  <script src="/user/script/form.js"></script>
 </body>
 
 </html>

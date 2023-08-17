@@ -13,6 +13,7 @@ const showImages=()=>{
             image.style.width='150px'
             image.style.margin="3px"
     imagePreview.appendChild(image)}
+    
 }
 
 const doAdLogin=()=>{

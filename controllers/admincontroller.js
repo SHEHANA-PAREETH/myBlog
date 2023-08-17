@@ -181,7 +181,10 @@ const showUser=(req,res)=>{
 const showUserProfile=(req,res)=>{
 
 USER.find({_id:req.query.id}).then((response)=>{
-    res.render('admin/userprofile.hbs')
+
+    res.render('admin/userprofile.hbs',{data:response})
+
+    
 })
 }
 module.exports={showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile}

@@ -19,18 +19,49 @@
 
 
 
-<div class="container-fluid bg-dark p-3">
+<div class="container-fluid bg-dark">
   <div class="row">
-    <div class="col d-flex justify-content-between align-items-center">
-<span class="bg-light fw-bolder p-2 text-uppercase" style="color:#FF8000; ">{{userDetails.name}}</span>
+    <div class="col d-flex  justify-content-between  align-items-center " style="height: 80px;">
+      <button class="btn rounded"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><img src="/uploads/{{userDetails.profilepic}}" onerror="this.src='/assets/profile.jfif'"  alt="" width='50px'></button>
 
-<button class="btn btn-light fw-bolder" onclick="logout()" style="color: #FF8000;">Log Out</button>
 
-              
-            
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" style="height:50vh;">
+
+  <div class="offcanvas-header text-center">
+    
+    <h5  id="offcanvasTopLabel">{{userDetails.name}}<br> Edit profile image</h5>
+
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+     <div class="d-flex center">
+  <form class="bg-dark form-input" action="/editprofile?id={{userDetails._id}}" method="post" enctype="multipart/form-data">
+<div class="preview ">
+   <img id="file-ip-1-preview">
+ </div>
+<label for="file-ip-1">select file</label>
+ <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);" name="profileimage">
+  <button type="submit" class="btn btn-dark">upload</button>
+ </form>
+
+     </div> 
   </div>
 </div>
+ 
+     
+  
+
+        <div class="d-flex justify-content-center align-items-center">
+         <h6 style="color: #FF8000;" class=" text-uppercase me-5">{{userDetails.name}}</h6> 
+<button class="btn btn-light fw-bold" onclick="logout()" style="color: #FF8000;">Log Out</button>
+  
+        </div>  
+
+              
+       </div>      
+  </div>
 </div>
+
   <section>
 
     <div class="container-fluid" style=" background-color:#FF8000;">
@@ -80,7 +111,7 @@
         
         </div>
       </div>
-      <div class="row">
+      <div class="row my-5">
         <div class=" col-12 col-lg-4  d-flex justify-content-center align-items-center"
           style="background-image:url('assets/sli1.jpg');background-position:center;background-size:cover;height:50vh;">
           <h4 class="text-light">CREATE YOUR BLOG</h4>
@@ -94,9 +125,9 @@
           <h4 class="text-light">UPLOAD YOUR BLOG</h4>
         </div>
       </div>
-      <div class="row  ">
-        <div class=" text-light col-12 p-5 d-flex flex-column justify-content-center align-items-center">
-          <h3>Choose the perfect design</h3>
+      <div class="row  " >
+        <div class=" text-light col-12 p-5 d-flex flex-column justify-content-center align-items-center" style="height:400px;">
+          <h3 class="">Choose the perfect design</h3>
           <p class="lh-2 text-light fw-bolder">Create a beautiful blog that fits your Choose from a selection of
             <br>easy-to-use templates –
             all with flexible layouts and hundreds of <br>background images – or design something new
@@ -118,10 +149,10 @@
   </div>
   <div class="container">
   <div  class=" col-md-6">
-    <h6 class="text-center mt-5 ">Recommended Topics</h6>
+    <h6 class="text-center mt-5 "></h6>
 <ul class="nav">
   <li class="nav-item">
-    <a class="nav-link active text-dark fw-light" aria-current="page" href="#"><small>Technology</small></a>
+    <a class="nav-link active text-dark fw-light" aria-current="page" href="#"><small></small></a>
   </li>
   <li class="nav-item ">
     <a class="nav-link text-dark fw-light" href="#"><small>Self Improvement</small></a>

@@ -209,4 +209,50 @@ USER.findOneAndUpdate({email:req.body.email,name:req.body.name}, {$set:{password
 
 
 }
-module.exports={showHomePage,showSignIn,showSignUp,doSignUp,doLogin,detailedViewPage,logout,showUpload,uploadPost,blogView,createPassPage,createNewPass}
+
+const uploadProfilepic=(req,res)=>{
+    const fileStorage=multer.diskStorage({
+        destination:(req,file,cb)=>{
+            cb(null,'public/uploads')
+        },
+        filename:(req,files,cb)=>{
+            cb(null,Date.now()+"-"+files.originalname)
+        }
+    })
+    var upload = multer({ storage: fileStorage }).single("profileimage");
+    upload(req,res,(err)=>{
+        console.log(req.file);
+        console.log(req.query);
+        USER.findOneAndUpdate({_id:req.query.id},{$set:{profilepic:req.file.filename}},{new:true}).then(doc=>{
+            if(doc){
+               
+                res.redirect('/home')
+            }
+           
+        else
+        res.json({profilepicupdated:false})
+        })
+       
+     })
+    
+}
+
+const showCategory=(req,res)=>{
+console.log(req.query);
+BLOGS.find({category:req.query.category}).then(doc=>{
+    console.log(doc);
+    res.render('user/categoryList.hbs',{data:doc})
+})
+}
+
+
+const showMyblogs=(req,res)=>{
+    console.log(req.query.id);
+    BLOGS.find({createdBy:req.query.id}).then((doc)=>{
+        console.log(doc);
+res.render('user/myblogs.hbs',{data:doc})
+    })
+}
+
+module.exports={uploadProfilepic,showHomePage,showSignIn,showSignUp,doSignUp,doLogin,detailedViewPage,
+    logout,showUpload,uploadPost,blogView,createPassPage,createNewPass,showCategory,showMyblogs}

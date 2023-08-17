@@ -19,7 +19,8 @@ const userSchema=mongoose.Schema({
         required:true,
     },
     profilepic:{
-        type:String
+        type:String,
+        
     }
 })
 
