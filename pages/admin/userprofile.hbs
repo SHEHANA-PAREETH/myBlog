@@ -1,7 +1,61 @@
-{{#each data}}
 
-{{this.name}}
-{{this.mobileno}}
-{{this.email}}
-<a href="/myblogs">showblogs</a>
-{{/each}}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<link rel="stylesheet" href="user/style/home.css">
+  <title>userhome</title>
+</head>
+
+<body>
+ <header>
+  
+      <div class="d-flex">
+        
+      
+       <!-- <button class="btn btn-dark m-5" onclick="doLogout()" type="button">Log out</button>-->
+      </div>
+    </div>
+  </div>
+</nav>
+ </header>
+   
+      
+
+<div class="container">
+  <div  class="col-md-12 d-flex flex-column justify-content-center align-items-center">
+    {{#each data}}
+<section>
+  <div class="card my-5" style="width:70vw;height:30vh;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <a href=""><img src="/uploads/{{this.profilepic}}" onerror="this.src='/assets/profile.jfif'" class="img-fluid rounded-start w-75 " style="height:30vh;" alt="..."></a>
+    </div>
+    <div class="col-md-4" style="width:40vw;">
+      <div class="card-body">
+        <h5 class="card-title">User Name:{{this.name}}</h5>
+        <small class="card-text lh-1">Mobile No: {{this.mobileno}}</small>
+        <p class="card-text"><small class="text-muted">Email Id: {{this.email}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+ {{/each}}
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="admin/script/form.js"></script>
+</body>
+
+</html>

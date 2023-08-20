@@ -47,6 +47,7 @@
       <th scope="col">Date</th>
       
       <th scope="col">Title</th>
+      <th scope="col">createdBy</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -56,8 +57,9 @@
      {{#each data}}
     <tr>
       <th scope="row">{{@index}}</th>
-      <td>{{this.createdAt}}</td>
+      <td>{{this.dateandtime}}</td>
      <td>{{this.title}}</td>
+     <td>{{this.createdBy.name}}</td>
      <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
   <a href="/admin/view/?id={{this._id}}"><button type="button" class="btn btn-danger">View</button></a>
   <button type="button" class="btn btn-warning" onclick="deletePost('{{this._id}}')">Delete</button>

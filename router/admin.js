@@ -14,7 +14,7 @@ router.get("/home",adminAuth,adHome)
 router.get("/uploads",adminAuth,uploadPage)
 router.post('/adregister',doAdLogin)
 router.post('/createBlog',adminAuth,createBlog)
-router.delete('/deletepost',adminAuth,deletePost)
+router.delete('/deletepost',deletePost)
 
 router.get("/logout",adLogout)
 

@@ -24,15 +24,15 @@
     display:none;
   }
   
-  .form-input label {
+  .form-input label , .uploadclass{
     display:block;
-    width:45%;
-    height:45px;
-    margin-left: 25%;
-    line-height:50px;
+   
+    
+    padding:5px;
+   
     text-align:center;
-    background:#1172c2;
-    color:#fff;
+    background:#FF8000;
+    color:white;
     font-size:15px;
     font-family:"Open Sans",sans-serif;
     text-transform:Uppercase;

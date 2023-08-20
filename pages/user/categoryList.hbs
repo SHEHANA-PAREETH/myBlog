@@ -65,20 +65,22 @@
     {{#each data}}
      
 <section>
+  <a href="/detailedview?id={{this._id}}" class="text-dark" style="text-decoration:none">
   <div class="card my-5" style="width:70vw;height:30vh;">
   <div class="row g-0">
     <div class="col-md-4">
-      <a href="/detailedview?id={{this._id}}"><img src="/uploads/{{this.images.[0].filename}}" class="img-fluid rounded-start w-75 " style="height:30vh;" alt="..."></a>
+      <img src="/uploads/{{this.images.[0].filename}}" class="img-fluid rounded-start w-75 " style="height:30vh;" alt="...">
     </div>
     <div class="col-md-4" style="width:40vw;">
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
         <small class="card-text lh-1"> {{this.content}}</small>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago{{this.date}}</small></p>
+        <p class="card-text"><small class="text-muted">Last updated :{{this.dateandtime}}</small></p>
       </div>
     </div>
   </div>
 </div>
+</a>
 </section>
  {{/each}}
  <!-- Option 1: Bootstrap Bundle with Popper -->

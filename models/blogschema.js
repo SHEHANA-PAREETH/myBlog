@@ -26,6 +26,9 @@ const blogSchema=mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:users
     },
+    dateandtime:{
+        type:String
+    },
     images:[]
 })
 const blogs=mongoose.model("blogs",blogSchema)

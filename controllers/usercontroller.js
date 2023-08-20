@@ -4,7 +4,7 @@ const USER=require("../models/usermodel").users
 const BLOGS=require('../models/blogschema')
 const jwt=require('jsonwebtoken')
 const multer=require('multer')
-
+ const convertISODateToCustomerFormat=require('../helpers/time')
 
 const showSignUp=(req,res)=>{
     if(req.cookies.userJwt)
@@ -107,19 +107,34 @@ const showHomePage=(req,res)=>{
 const detailedViewPage=(req,res)=>{
  try{
     console.log(req.query);
-    BLOGS.find({_id:req.query.id})//use find one 
-    .populate({
-        path:'createdBy',
-        select:['name','email']//show only users name and email
-    })
+    BLOGS.findOne({_id:req.query.id})//use find one 
+   // .populate({
+      //  path:'createdBy',
+       // select:['name','email']//show only users name and email
+   // })
     .then(response=>{
         //response[0].createdAt=new Date(response[0].createdAt)
        console.log(response);
-       const day=convertISODateToCustomerFormat(response[0].createdAt)
+       const day=convertISODateToCustomerFormat(response.createdAt)
        const date=day.slice(0,12)
      const time=day.slice(13,21)
       console.log(date,time);
-        res.render('user/detailedview.hbs',{data:response[0],date,time})
+      BLOGS.findOneAndUpdate({_id:req.query.id},{$set:{dateandtime:`${date}: ${time}`}}, {new: true}).then((doc)=>{
+console.log(doc);
+if(doc){
+    BLOGS.findOne({_id:req.query.id})//use find one 
+    .populate({
+        path:'createdBy',
+      select:['name','email']//show only users name and email
+    
+  }).then(resp=>{
+    res.render('user/detailedview.hbs',{data:resp})
+  })
+}
+
+ 
+      })
+       
     })
     .catch(err=>{
         console.log("error");//design error page, try catch use cheyyuka
@@ -166,10 +181,12 @@ const uploadPost=(req,res)=>{
         description:req.body.description,
         createdBy:req.query.id,//to print user uploading blog
        images:req.files}).save().then((response)=>{
-res.redirect('/blog')
- })
+            res.redirect('/blog')
 })
+})
+    
 }
+ 
 const blogView=(req,res)=>{
     BLOGS.find().then((response)=>{
         //get array of objects
@@ -179,16 +196,7 @@ const blogView=(req,res)=>{
   })
     
 }
-function convertISODateToCustomerFormat(isoDate){
-    const dateObj=new Date(isoDate)
-    const day=String(dateObj.getDate()).padStart(2,'0')
-    const month=String(dateObj).slice(4,8)
-    const year=dateObj.getFullYear()
-    const hours=dateObj.getHours()%12||12
-    const minutes=String(dateObj.getMinutes()).padStart(2,'0')
-    const amOrPm=dateObj.getHours()>=12?'PM':'AM'
-    return `${day}-${month}-${year}-${hours}-${minutes}-${amOrPm}`
-}
+
 
 const createPassPage=(req,res)=>{
     res.render('user/forgottpass.hbs')

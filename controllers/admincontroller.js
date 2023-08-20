@@ -22,8 +22,13 @@ const showAdLogin=(req,res)=>{
         
 }
 const showPost=(req,res)=>{
-    BLOGS.find().then((response)=>{
-        
+    BLOGS.find()//use find one 
+    .populate({
+       path:'createdBy',
+ select:['name','email']//show only users name and email
+    })
+     .then((response)=>{
+    
         res.render('admin/post.hbs',{data:response})
       })
 }
