@@ -153,7 +153,7 @@ const showView=(req,res)=>{
            const time=day.slice(12,20)
            
           
-            res.render('user/detailedview.hbs',{data:response[0],time,date})
+            res.render('admin/view.hbs',{data:response[0],time,date})
         })
         .catch(err=>{
             console.log("error");//design error page, try catch use cheyyuka
@@ -192,4 +192,27 @@ USER.find({_id:req.query.id}).then((response)=>{
     
 })
 }
-module.exports={showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile}
+
+const blockUser=(req,res)=>{
+
+console.log(req.body.blockId);
+USER.findOneAndUpdate({_id:req.body.blockId},{$set:{active:false}},{new:true}).then((doc)=>{
+  if(doc) 
+  res.json({blocked:true}) 
+else
+res.json({blocked:false})
+})
+}
+
+
+
+const unblockUser=(req,res)=>{
+    console.log(req.body.unblockId);
+    USER.findOneAndUpdate({_id:req.body.unblockId},{$set:{active:true}},{new:true}).then((doc)=>{
+      if(doc) 
+      res.json({unblocked:true}) 
+    else
+    res.json({unblocked:false})
+    })
+}
+module.exports={showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile,blockUser,unblockUser}

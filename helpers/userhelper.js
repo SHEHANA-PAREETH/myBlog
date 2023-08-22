@@ -5,7 +5,7 @@ const mongoose=require('mongoose')
 
 
 const getUserData=(userId)=>{
-return USER.find({_id:userId},{password:0,mobileno:0})
+return USER.find({_id:userId},{password:0})
 }
 
 

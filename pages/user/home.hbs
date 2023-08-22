@@ -11,6 +11,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <link rel="stylesheet" href="user/style/home.css">
+<script src="https://kit.fontawesome.com/b2a03b7303.js" crossorigin="anonymous"></script>
   <title>userhome</title>
 </head>
 
@@ -19,20 +20,20 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
+    <a class="navbar-brand" href="#"><img  class="img-fluid " src="assets/new.png" alt="" width="100px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home" style="color: #FF8000;">Home</a>
+          <a class="nav-link active fw-bolder" aria-current="page" href="/home" style="color: #FF8000;">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/blog" style="color: #FF8000;">For You</a>
+          <a class="nav-link fw-bolder" href="/blog?page=1&&limit=5" style="color: #FF8000;">For You</a>
         </li>
         <li class="nav-item dropdown">
-          <a style="color: #FF8000;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a style="color: #FF8000;" class="nav-link dropdown-toggle fw-bolder" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Recommended Topics
           </a>
          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -45,13 +46,38 @@
     <li><a class="dropdown-item" href="/category?category=Artificial Intelligence">Artificial Intelligence</a></li>
   </ul>
         </li>
-       <a href="/uploads" ><button class=" btn " style="color: #FF8000;">Create blog</button></a>
-       <button class="btn" onclick="logout()" style="color: #FF8000;">Log Out</button>
+       <a href="/uploads" ><button class=" btn fw-bolder" style="color: #FF8000;">Create blog</button></a>
+      
       </ul>
-      <div class="d-flex">
-        <button class="btn"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><img src="/uploads/{{userDetails.profilepic}}" onerror="this.src='/assets/profile.jfif'"  alt="" width='70px'></button>
+      <div class="d-flex flex-column">
+        <button class="btn"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><img src="/uploads/{{userDetails.profilepic}}" onerror="this.src='/assets/profile.jfif'"  alt="" height="60px" width='60px' style="border-radius:30px 30px;"></button>
+
+ <h6 id="editname" style="color: #FF8000;cursor:pointer;" class=" text-uppercase" onclick="editname()">{{userDetails.name}}</h6>
 
 
+ <div class="position-absolute top-0 end-0 profileview" id="newprofile">
+ <div class="alert alert-warning alert-dismissible fade show p-5 d-flex flex-column justify-content-center align-items-center" role="alert">
+ 
+  <img  src="/uploads/{{userDetails.profilepic}}" onerror="this.src='/assets/profile.jfif'"  alt="" height="60px" width='60px' style="border-radius:30px 30px;" alt="John" style="width:100%">
+  <h3 id="oldname">{{userDetails.name}}<i class="fa-solid fa-pen-to-square ms-2" style="color: #ff8000;" onclick="changename('{{userDetails._id}}')"></i></h3>
+  <input type="text" id="fname" class="my-3 form-control">
+  <p class="title">Email Id: {{userDetails.email}}</p>
+  <p>Mobile Number: {{userDetails.mobileno}}</p>
+  <div class="d-flex">
+  <a href="#"><i class="fa fa-dribbble mx-3"  style="color: #ff8000;"></i></a>
+  <a href="#"><i class="fa fa-twitter mx-3"  style="color: #ff8000;"></i></a>
+  <a href="#"><i class="fa fa-linkedin mx-3"  style="color: #ff8000;"></i></a>
+  <a href="#"><i class="fa fa-facebook mx-3"  style="color: #ff8000;"></i></a>
+  </div>
+  <p><button class="my-3">Contact</button></p>
+
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+ </div> 
 <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" style="height:70vh;">
 
   <div class="offcanvas-header ">
@@ -74,11 +100,15 @@
      </div> 
   </div>
 </div>
-         <h6 style="color: #FF8000;" class=" text-uppercase ms-3 my-2">{{userDetails.name}}</h6> 
+        
 
       </div>
+       <button class="btn fw-bolder" onclick="logout()" style="color: #FF8000;">Log Out</button>
     </div>
+  
   </div>
+
+
 </nav>
 </header>
 
@@ -86,6 +116,7 @@
 
 
   <section>
+
 
     <div class="container-fluid" style=" background-color:#FF8000;">
 

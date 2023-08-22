@@ -21,7 +21,11 @@ const userSchema=mongoose.Schema({
     profilepic:{
         type:String,
         
-    }
+    },
+    active: { type: Boolean, 
+        default: true ,
+        required:true}
+    
 })
 
 const users=mongoose.model("users",userSchema)

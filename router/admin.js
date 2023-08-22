@@ -1,8 +1,7 @@
 const express=require("express")
 const router=express.Router()
-const {showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile}=require('../controllers/admincontroller')
+const {showAdLogin,uploadPage,doAdLogin,createBlog,adHome,adLogout,deletePost,showView,showPost,showUser,showUserProfile,blockUser,unblockUser}=require('../controllers/admincontroller')
 const adminAuth=require('../middleware/adminauth')
-
 
 
 router.get("/",showAdLogin)
@@ -15,7 +14,8 @@ router.get("/uploads",adminAuth,uploadPage)
 router.post('/adregister',doAdLogin)
 router.post('/createBlog',adminAuth,createBlog)
 router.delete('/deletepost',deletePost)
-
+router.put('/blockuser',blockUser)
+router.put('/unblockuser',unblockUser)
 router.get("/logout",adLogout)
 
 module.exports=router

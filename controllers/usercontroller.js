@@ -6,6 +6,9 @@ const jwt=require('jsonwebtoken')
 const multer=require('multer')
  const convertISODateToCustomerFormat=require('../helpers/time')
 
+
+
+
 const showSignUp=(req,res)=>{
     if(req.cookies.userJwt)
     {
@@ -70,8 +73,8 @@ const doLogin=(req,res)=>{
 //call schema
 USER.find({
     email:req.body.email,//check user already exists in DB
-    name:req.body.name,
     password:req.body.password,
+   
     
 }).then((response)=>
 {
@@ -88,7 +91,7 @@ if(response.length>0){//send the response to frontend .we have to convert it to 
     secure:false,
     maxAge:24*60*60*1000
    })
-    res.status(200).json({login:true})
+    res.status(200).json({login:true,active:response[0].active})
 }
 else{
     res.json({login:false})
@@ -154,7 +157,7 @@ const logout=(req,res)=>{
         maxAge:1//1 milli second
        })
        
-res.redirect('/signin')
+res.redirect('/')
 }
 
 
@@ -187,13 +190,15 @@ const uploadPost=(req,res)=>{
     
 }
  
-const blogView=(req,res)=>{
-    BLOGS.find().then((response)=>{
-        //get array of objects
-       
-        res.render('user/blog.hbs',{data:response})
-  
-  })
+
+
+
+
+const blogView =(req,res)=>{
+ BLOGS.find().then((data)=>{
+    res.render('user/blog.hbs',{data:data})
+ })
+        
     
 }
 
@@ -262,5 +267,20 @@ res.render('user/myblogs.hbs',{data:doc})
     })
 }
 
+const updateName=(req,res)=>{
+console.log((req.body));
+USER.findOneAndUpdate({_id:req.body.id},{$set:{name:req.body.name}},{new:true}).then((doc)=>{
+   // console.log(doc);
+   if(doc){
+    res.json({updatedname:true})
+   }
+   else
+   res.json({updatedname:false})
+
+})
+}
+
+
+
 module.exports={uploadProfilepic,showHomePage,showSignIn,showSignUp,doSignUp,doLogin,detailedViewPage,
-    logout,showUpload,uploadPost,blogView,createPassPage,createNewPass,showCategory,showMyblogs}
+    logout,showUpload,uploadPost,blogView,createPassPage,createNewPass,showCategory,showMyblogs,updateName}

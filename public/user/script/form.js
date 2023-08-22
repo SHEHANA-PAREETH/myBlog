@@ -34,7 +34,7 @@ function doSignUp(){
  .then(data=>{console.log('signup front end');
  console.log(data);
     if(data.signup){
-        window.location.href="/signin"
+        window.location.href="/"
     }
     if(data.user){
        
@@ -45,9 +45,10 @@ function doSignUp(){
  })    
 }
 function doLogin(){
+
     let LoginData={}
     LoginData.email=document.getElementById("email").value
-    LoginData.name=document.getElementById("name").value
+   
     LoginData.password=document.getElementById("password").value
 fetch("/login",{
     method:'post',
@@ -56,18 +57,34 @@ fetch("/login",{
     },
     body:JSON.stringify(LoginData)
 }).then((response)=>response.json())//diffrent format from back end to front end, to parse it to json format
-.then(data=>{
-    
+.then((data)=>{
+    console.log(data);
    if(data.login){
-    //bom property
-    window.location.href='/home'
-   }
-else{document.getElementById("warning").innerHTML="invalid credentials"
+    if(data.active){
+        
+        window.location.href='/home'
+    }
+    else{
+        document.getElementById("warning").innerHTML="You have been blocked"
     setTimeout(()=>{
         document.getElementById("warning").innerHTML=""
+        window.location.href='/logout'
     },3000)
-
-} })
+    }
+   
+   }
+   else
+   {
+  
+    document.getElementById("warning").innerHTML="invalid credentials"
+    setTimeout(()=>{
+        document.getElementById("warning").innerHTML=""
+        window.location.href='/'
+    },3000)
+   
+   }
+       
+})
 
 }
 
@@ -119,14 +136,14 @@ else{
                 //bom property
                 document.getElementById("message").innerHTML="Password updated suucessfully"
                 setTimeout(()=>{
-                    window.location.href='/signin'
+                    window.location.href='/'
                 },2000)
                
                }
             else{document.getElementById("message").innerHTML="User doesn't exist, create new account"
                 
             setTimeout(()=>{
-                window.location.href='/'
+                window.location.href='/signin'
             },5000)
            
             
@@ -167,3 +184,55 @@ const showImages=()=>{
             image.style.margin="3px"
     imagePreview.appendChild(image)}
 }
+
+
+const editname=()=>{
+    console.log('edit');
+    let elein=document.getElementById('fname')
+    elein.style.display='none'
+    let ele=document.getElementById('editname')
+    ele.style.backgroundColor='#FF8000'
+    ele.style.color='white'
+    let pro=document.getElementById('newprofile')
+pro.classList.remove('profileview')
+}
+
+const changename=(nameId)=>{
+    console.log(nameId);
+    let ele=document.getElementById('oldname')
+    ele.style.display='none'
+    let elein=document.getElementById('fname')
+    elein.style.display='block'
+    
+    
+    elein.addEventListener("blur", myFunction);
+
+    function myFunction() {
+     console.log(elein.value); 
+     let newname={}
+     newname.id=nameId
+     newname.name=elein.value;
+     console.log(newname);
+     fetch("/updatename",{
+        method:'post',
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(newname)
+    }).then((response)=>response.json())
+    //diffrent format from back end to front end, to parse it to json format
+    .then((data)=>{
+        console.log(data);
+        if(data.updatedname){
+            window.location.href='/home'
+        }
+        
+    })
+    
+    }
+   
+    
+   
+
+}
+

@@ -5,7 +5,7 @@ const timemidd=(req,res,next)=>{
   
     BLOGS.findOne({}, {}, { sort: { 'createdAt' : -1 }})
     .then((resp)=>{
-      console.log(resp);
+      
       const day=convertISODateToCustomerFormat(resp.createdAt)
       const date=day.slice(0,12)
       const time=day.slice(13,21)
