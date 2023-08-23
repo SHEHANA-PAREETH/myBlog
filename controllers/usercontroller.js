@@ -195,9 +195,46 @@ const uploadPost=(req,res)=>{
 
 
 const blogView =(req,res)=>{
- BLOGS.find().then((data)=>{
-    res.render('user/blog.hbs',{data:data})
- })
+   BLOGS.find({}).count().then(blogcount=>{
+    console.log(blogcount);
+    const page=req.query.page
+   const limit=req.query.limit
+   const totalpage=(blogcount/limit)
+   const pages=Math.ceil(totalpage)
+   console.log(pages);
+   const pagination=[]
+   const next=[]
+   const previous=[]
+   for(let i=1;i<=pages;i++){
+    pagination.push(i)
+next.push(i+1)
+previous.push(i-1)
+   }
+   console.log(pagination);
+   BLOGS.find({}).skip((page-1)*limit).limit(limit).then(resp=>{
+    //console.log(resp);
+    res.render('user/blog.hbs',{data:resp,pagination,next,previous})
+   })
+   
+  
+   
+
+   //console.log(page,limit);
+ 
+   })
+   
+   
+   /*exec((err,blogs)=>{
+    if(err){
+        res.status(500).send(err)
+    }
+    else{
+        res.status(200).send(blogs)
+    }
+   })*/
+ //BLOGS.find().then((data)=>{
+    //
+ //})
         
     
 }
