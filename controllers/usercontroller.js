@@ -285,9 +285,11 @@ const uploadProfilepic=(req,res)=>{
        
      })
     
+     
 }
 
 const showCategory=(req,res)=>{
+    
 console.log(req.query);
 BLOGS.find({category:req.query.category}).then(doc=>{
     console.log(doc);
